@@ -19,6 +19,7 @@ StateTracker::StateTracker()
     , pending_packets_(0)
     , sem_is_occupied_(false)
     , waiting_mask_(0)
+    , mutex_()
     , waiting_con_(mutex_) {
 }
 
