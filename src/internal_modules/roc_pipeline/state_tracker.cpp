@@ -54,7 +54,7 @@ bool StateTracker::wait_state(unsigned int state_mask, core::nanoseconds_t deadl
 
         if (sem_is_occupied_.compare_exchange(false, true)) {
             if (deadline >= 0) {
-                sem_.timed_wait(deadline);
+                (void)sem_.timed_wait(deadline);
 
             } else {
                 sem_.wait();
@@ -67,7 +67,7 @@ bool StateTracker::wait_state(unsigned int state_mask, core::nanoseconds_t deadl
             core::Mutex::Lock lock(mutex_);
 
             if (deadline >= 0) {
-                waiting_con_.timed_wait(deadline);
+                (void)waiting_con_.timed_wait(deadline);
             } else {
                 waiting_con_.wait();
             }
