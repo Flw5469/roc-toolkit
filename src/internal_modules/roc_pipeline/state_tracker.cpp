@@ -9,7 +9,6 @@
 #include "roc_pipeline/state_tracker.h"
 #include "roc_core/log.h"
 #include "roc_core/panic.h"
-
 namespace roc {
 namespace pipeline {
 

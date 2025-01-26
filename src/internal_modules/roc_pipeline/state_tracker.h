@@ -17,7 +17,9 @@
 #include "roc_core/mutex.h"
 #include "roc_core/noncopyable.h"
 #include "roc_core/semaphore.h"
+#include "roc_core/semaphore.h"
 #include "roc_core/stddefs.h"
+#include "roc_core/time.h"
 #include "roc_core/time.h"
 #include "roc_sndio/device_state.h"
 
@@ -35,6 +37,9 @@ class StateTracker : public core::NonCopyable<> {
 public:
     //! Initialize all counters to zero.
     StateTracker();
+
+    //! Block until state becomes any of the ones specified by state_mask.
+    bool wait_state(unsigned state_mask, core::nanoseconds_t deadline);
 
     //! Block until state becomes any of the ones specified by state_mask.
     bool wait_state(unsigned state_mask, core::nanoseconds_t deadline);
@@ -70,6 +75,7 @@ public:
     void unregister_packet();
 
 private:
+    core::Semaphore sem_;
     core::Semaphore sem_;
     core::Atomic<int> halt_state_;
     core::Atomic<int> active_sessions_;
