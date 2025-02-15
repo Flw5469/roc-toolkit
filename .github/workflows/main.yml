@@ -1,0 +1,66 @@
+name: "build"
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+      - feature/*
+      - waspd/*
+    tags:
+      - v*
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 1'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  linux-x86_64:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - script: linux-x86_64/ubuntu-24.04
+            image: rocstreaming/env-ubuntu:24.04
+
+          - script: linux-x86_64/ubuntu-22.04
+            image: rocstreaming/env-ubuntu:22.04
+
+          - script: linux-x86_64/ubuntu-20.04
+            image: rocstreaming/env-ubuntu:20.04
+
+          - script: linux-x86_64/ubuntu-18.04
+            image: rocstreaming/env-ubuntu:18.04
+
+          - script: linux-x86_64/ubuntu-16.04
+            image: rocstreaming/env-ubuntu:16.04
+
+          - script: linux-x86_64/ubuntu-14.04
+            image: rocstreaming/env-ubuntu:14.04
+
+          - script: linux-x86_64/debian
+            image: rocstreaming/env-debian
+
+          - script: linux-x86_64/fedora
+            image: rocstreaming/env-fedora
+
+          - script: linux-x86_64/opensuse
+            image: rocstreaming/env-opensuse
+
+          - script: linux-x86_64/archlinux
+            image: rocstreaming/env-archlinux
+
+          - script: linux-x86_64/alpine
+            image: rocstreaming/env-alpine
+
+    name: ${{ matrix.script }}
+    steps:
+      - name: Pull docker image
+        run: docker pull ${{ matrix.image }}
