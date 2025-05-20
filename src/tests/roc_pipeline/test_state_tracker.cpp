@@ -82,6 +82,8 @@ TEST(state_tracker, simple_timeout) {
     core::sleep_for(core::ClockMonotonic, core::Millisecond * 1000);
     CHECK(!(thr.running()));
     thr.join();
+
+    delete(thr); 
 }
 
 TEST(state_tracker, multiple_timeout) {
@@ -124,6 +126,11 @@ TEST(state_tracker, multiple_timeout) {
     }
 
     roc_log(LogDebug, "finished joining");
+
+    for (int i = 0; i < 10; ++i) {
+      delete threads_ptr[i];
+    }
+    delete[] threads_ptr; 
 }
 
 TEST(state_tracker, multiple_switch) {
@@ -163,7 +170,13 @@ TEST(state_tracker, multiple_switch) {
     for (int i = 0; i < 10; i++) {
         threads_ptr[i]->join();
     }
+
     roc_log(LogDebug, "finished joining");
+    
+    for (int i = 0; i < 10; ++i) {
+      delete threads_ptr[i];
+    }
+    delete[] threads_ptr; 
 }
 
 TEST(state_tracker, semaphore_test) {
