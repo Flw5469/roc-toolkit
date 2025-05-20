@@ -82,8 +82,6 @@ TEST(state_tracker, simple_timeout) {
     core::sleep_for(core::ClockMonotonic, core::Millisecond * 1000);
     CHECK(!(thr.running()));
     thr.join();
-
-    delete (thr);
 }
 
 TEST(state_tracker, multiple_timeout) {
