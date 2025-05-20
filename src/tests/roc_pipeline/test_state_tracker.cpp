@@ -172,7 +172,7 @@ TEST(state_tracker, semaphore_test) {
     if (sem.timed_wait(1 * core::Second + core::timestamp(core::ClockMonotonic)))
         roc_log(LogDebug, "true, unlocked by other threads");
     else
-        roc_log(LogDebug, "false, timeout");
+        roc_log(LogDebug, "false, timeout after waiting");
 }
 } // namespace pipeline
 } // namespace roc
