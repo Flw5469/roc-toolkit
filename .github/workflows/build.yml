@@ -7,6 +7,7 @@ on:
       - develop
       - feature/*
       - waspd/*
+      - state_tracker_new_withCI
     tags:
       - v*
 
