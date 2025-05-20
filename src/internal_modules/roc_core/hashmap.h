@@ -291,11 +291,11 @@ public:
 private:
     enum {
         // how much buckets are embedded directly into Hashmap object
-        NumEmbeddedBuckets = ((int)(EmbeddedCapacity == 0        ? 0
-                                        : EmbeddedCapacity <= 16 ? 16
-                                                                 : EmbeddedCapacity)
-                                  * HashmapImpl::LoadFactorDen
-                              + HashmapImpl::LoadFactorNum - 1)
+        NumEmbeddedBuckets =
+            ((int)(EmbeddedCapacity == 0 ? 0
+                                         : EmbeddedCapacity <= 16 ? 16 : EmbeddedCapacity)
+                 * HashmapImpl::LoadFactorDen
+             + HashmapImpl::LoadFactorNum - 1)
             / HashmapImpl::LoadFactorNum * 2
     };
 
