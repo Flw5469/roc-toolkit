@@ -7,7 +7,7 @@ scons -Q fmt
 diff=$(git status --porcelain)
 
 if [[ $diff ]]; then
-    echo
+    echo $diff
     echo "format check FAILED"
     echo "please install clang-format and run scons -Q fmt"
     echo
