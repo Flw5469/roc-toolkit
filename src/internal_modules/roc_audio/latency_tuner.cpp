@@ -95,9 +95,9 @@ LatencyTuner::LatencyTuner(const LatencyConfig& latency_config,
         " scaling_interval=%ld(%.3fms) scaling_tolerance=%.3f",
         // backend, profile, tuning
         latency_tuner_backend_to_str(backend_), latency_tuner_profile_to_str(profile_),
-        enable_latency_adjustment_ && latency_is_adaptive_
-            ? "adaptive"
-            : enable_latency_adjustment_ ? "fixed" : "disabled",
+        enable_latency_adjustment_ && latency_is_adaptive_ ? "adaptive"
+            : enable_latency_adjustment_                   ? "fixed"
+                                                           : "disabled",
         // target_latency, latency_tolerance
         (long)sample_spec_.ns_2_stream_timestamp_delta(latency_config.target_latency),
         (double)latency_config.target_latency / core::Millisecond,
